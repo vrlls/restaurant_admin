@@ -11,7 +11,7 @@ RSpec.describe Product, type: :model do
     it { should validate_presence_of(:mesured) }
 
     it { should validate_length_of(:mesured).is_at_least(2) }
-    it { should validate_length_of(:mesured).is_at_most(4) }
+    it { should validate_length_of(:mesured).is_at_most(5) }
 
     it do
       should define_enum_for(:product_type)

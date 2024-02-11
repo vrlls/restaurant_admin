@@ -43,4 +43,23 @@ RSpec.describe 'Api::V1::Products', type: :request do
       it { expect(JSON.parse(response.body)['message']).to eq('Error creating product') }
     end
   end
+
+  describe 'GET /product' do
+    context 'Valid product' do
+      let!(:product) { create(:product) }
+      before do
+        get api_v1_product_path({ id: product.id })
+      end
+      it { expect(response).to have_http_status(:found) }
+      it { expect(JSON.parse(response.body)['name']).to eq(product.name) }
+    end
+
+    context 'Invalid product' do
+      let!(:product) { create(:product) }
+      before do
+        get api_v1_product_path({ id: 123 })
+      end
+      it { expect(response).to have_http_status(:not_found) }
+    end
+  end
 end
