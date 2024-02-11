@@ -8,6 +8,13 @@ module Api
         render json: @products, status: :ok
       end
 
+      def show
+        @product = Product.find(params[:id])
+        render json: @product, status: :found
+      rescue ActiveRecord::RecordNotFound
+        render json: { message: 'Product not founded' }, status: :not_found
+      end
+
       def create
         @product = Product.new(product_params)
 
