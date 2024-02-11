@@ -34,6 +34,16 @@ module Api
         render json: { message: 'Product not founded' }, status: :not_found
       end
 
+      def destroy
+        if product.destroy
+          render json: {message: "Product destroyed successfully"}, status: :ok
+        else
+          render json: {message: "Error destruying product"}, status: :unprocessable_entity
+        end
+      rescue ActiveRecord::RecordNotFound
+        render json: { message: 'Product not founded' }, status: :not_found
+      end
+
       private
 
       def product_params
