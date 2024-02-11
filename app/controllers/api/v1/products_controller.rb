@@ -9,8 +9,7 @@ module Api
       end
 
       def show
-        @product = Product.find(params[:id])
-        render json: @product, status: :found
+        render json: product, status: :found
       rescue ActiveRecord::RecordNotFound
         render json: { message: 'Product not founded' }, status: :not_found
       end
@@ -25,11 +24,25 @@ module Api
         end
       end
 
+      def update
+        if product.update(product_params)
+          render json: product, status: :ok
+        else
+          render json: { message: 'Error updating product' }, status: :unprocessable_entity
+        end
+      rescue ActiveRecord::RecordNotFound
+        render json: { message: 'Product not founded' }, status: :not_found
+      end
+
       private
 
       def product_params
         params.require(:product).permit(:name, :description, :unit_price, :available_units,
                                         :mesured, :product_type)
+      end
+
+      def product
+        Product.find(params[:id])
       end
     end
   end
