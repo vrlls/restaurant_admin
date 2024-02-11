@@ -24,5 +24,23 @@ RSpec.describe 'Api::V1::Products', type: :request do
   end
 
   describe 'POST /products' do
+    context 'With valid params' do
+      before do
+        post api_v1_products_path({ product: { name: 'Gulash', unit_price: 12_000, available_units: 5, mesured: 'units', product_type: :dish } })
+      end
+
+      it { expect(response).to have_http_status(:created) }
+      it { expect(Product.last.name).to eq('Gulash') }
+      it { expect(Product.last.dish?).to eq(true) }
+    end
+
+    context 'With invalid params' do
+      before do
+        post api_v1_products_path({ product: { name: nil, available_units: 5, mesured: 'lb' } })
+      end
+
+      it { expect(response).to have_http_status(:unprocessable_entity) }
+      it { expect(JSON.parse(response.body)['message']).to eq('Error creating product') }
+    end
   end
 end

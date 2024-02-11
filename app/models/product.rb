@@ -6,6 +6,7 @@ class Product < ApplicationRecord
   validates :name, presence: true
   validates :unit_price, presence: true
   validates :available_units, presence: true
-  validates :mesured, presence: true, length: { minimum: 2, maximum: 4 }
+  validates :mesured, presence: true, length: { minimum: 2, maximum: 5 },
+                      acceptance: { accept: %w[kg lb lt gr units] }
   validates :product_type, presence: true
 end
