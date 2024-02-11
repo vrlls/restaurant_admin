@@ -33,6 +33,9 @@ Style/Documentation:
 Naming/MethodParameterName:
   MinNameLength: 2
 
+Metrics/BlockLength:
+  AllowedMethods: ['describe', 'context']
+
 # Avoid using the `for` keyword, prefer `each`.
 Style/For:
   Enabled: true
