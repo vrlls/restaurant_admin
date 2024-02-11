@@ -64,7 +64,7 @@ RSpec.describe 'Api::V1::Products', type: :request do
   end
 
   describe 'PATCH /products' do
-    context 'With existen product and valid params' do
+    context 'With existing product and valid params' do
       let!(:product) { create(:product) }
       before do
         put api_v1_product_path({ id: product.id, product: { name: 'new name' } })
@@ -73,7 +73,7 @@ RSpec.describe 'Api::V1::Products', type: :request do
       it { expect(JSON.parse(response.body)['name']).to eq('new name') }
     end
 
-    context 'With unexisten product and valid params' do
+    context 'with non-existent product and valid params' do
       let!(:product) { create(:product) }
       before do
         put api_v1_product_path({ id: 123, product: { name: 'new name' } })
@@ -81,12 +81,32 @@ RSpec.describe 'Api::V1::Products', type: :request do
       it { expect(response).to have_http_status(:not_found) }
     end
 
-    context 'With existen product and invalid params' do
+    context 'With existing product and invalid params' do
       let!(:product) { create(:product) }
       before do
         put api_v1_product_path({ id: product.id, product: { name: nil } })
       end
       it { expect(response).to have_http_status(:unprocessable_entity) }
+    end
+  end
+
+  describe 'DELETE /products' do
+    context 'With existing product' do
+      let!(:product) { create(:product) }
+      before do
+        delete api_v1_product_path({ id: product.id })
+      end
+
+      it { expect(response).to have_http_status(:ok) }
+    end
+
+    context 'with non-existent products' do
+      let!(:product) { create(:product) }
+      before do
+        delete api_v1_product_path({ id: 123 })
+      end
+
+      it { expect(response).to have_http_status(:not_found) }
     end
   end
 end
