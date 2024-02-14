@@ -44,7 +44,7 @@ RSpec.describe 'Api::V1::Products', type: :request do
     end
   end
 
-  describe 'GET /products' do
+  describe 'GET /product' do
     context 'Valid product' do
       let!(:product) { create(:product) }
       before do
