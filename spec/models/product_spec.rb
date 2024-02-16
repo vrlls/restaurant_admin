@@ -4,6 +4,11 @@ require 'rails_helper'
 
 RSpec.describe Product, type: :model do
   context 'Validations' do
+    before do
+      @product = create(:product)
+    end
+    subject { @product }
+
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:unit_price) }
     it { should validate_presence_of(:available_units) }
@@ -17,5 +22,7 @@ RSpec.describe Product, type: :model do
       should define_enum_for(:product_type)
         .with_values(%i[dish basic])
     end
+
+    it { should validate_uniqueness_of(:name) }
   end
 end
