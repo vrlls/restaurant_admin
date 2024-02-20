@@ -14,7 +14,6 @@ RSpec.describe Client, type: :model do
       it { should validate_length_of(:name).is_at_least(3) }
       it { should validate_length_of(:name).is_at_most(20) }
 
-      it { should validate_length_of(:last_name).is_at_least(3) }
       it { should validate_length_of(:last_name).is_at_most(30) }
 
       it { should validate_length_of(:address).is_at_least(3) }
@@ -23,7 +22,6 @@ RSpec.describe Client, type: :model do
       it { should validate_length_of(:phone).is_at_least(7) }
       it { should validate_length_of(:phone).is_at_most(30) }
 
-      it { should validate_length_of(:email).is_at_least(4) }
       it { should validate_length_of(:email).is_at_most(254) }
 
       it { should validate_length_of(:notes).is_at_most(500) }

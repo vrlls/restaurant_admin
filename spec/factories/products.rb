@@ -5,7 +5,7 @@ FactoryBot.define do
     name { product_type == :dish ? Faker::Food.dish : Faker::Food.ingredient }
     unit_price { 1.5 }
     available_units { Faker::Number.number(digits: 2) }
-    mesured { 'units' }
+    measure { 'units' }
     description { Faker::Food.description }
     product_type { %i[dish basic].sample }
   end

@@ -13,10 +13,7 @@ RSpec.describe Product, type: :model do
     it { should validate_presence_of(:unit_price) }
     it { should validate_presence_of(:available_units) }
     it { should validate_presence_of(:product_type) }
-    it { should validate_presence_of(:mesured) }
-
-    it { should validate_length_of(:mesured).is_at_least(2) }
-    it { should validate_length_of(:mesured).is_at_most(5) }
+    it { should validate_presence_of(:measure) }
 
     it do
       should define_enum_for(:product_type)
@@ -24,5 +21,8 @@ RSpec.describe Product, type: :model do
     end
 
     it { should validate_uniqueness_of(:name) }
+
+    it { expect(subject).to validate_inclusion_of(:measure).in_array(%w(kg lb lt gr units)) }
+
   end
 end
